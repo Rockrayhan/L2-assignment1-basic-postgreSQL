@@ -11,14 +11,53 @@ PostgreSQL মূলত একটি রিলেশনাল ডেটাবে
 
 
 ## 2.What is the purpose of a database schema in PostgreSQL?
+PostgreSQL ডাটাবেজে স্কিমা খুব গুরুত্বপূর্ণ ও দরকারি একটি ফিচার। স্কিমা হলো ডাটাবেজের ভেতর একটি ফোল্ডারের মতো, যেখানে আমরা আমাদের ডেটাগুলো গুছিয়ে এবং গ্রুপ করে রাখতে পারি। এর ফলে আমাদের ডেটাগুলো খুবই গোছানোভাবে থাকে। যখন ডাটাবেজে অনেক টেবিল হয়ে যায়, তখন স্কিমার মাধ্যমে আমরা সহজেই আমাদের টেবিলগুলো ম্যানেজ করতে পারি।
 
+* বড় সফটওয়্যার বা অ্যাপ্লিকেশনে একই নামে একাধিক টেবিল থাকতে পারে। তখন স্কিমার সাহায্যে আমরা টেবিলগুলোকে আলাদা আলাদা ভাগে ভাগ করে রাখতে পারি গ্রুপিংয়ের মাধ্যমে। স্কিমার মাধ্যমে আমরা বিভিন্ন ইউজারকে ডাটাবেজের বিভিন্ন অংশের দায়িত্ব বা অ্যাক্সেস দিতে পারি।
+
+* যেমন- একটি company_db ডাটাবেজে দুটি ডিপার্টমেন্ট রয়েছে — ১. Sales, ২. HR। এই দুই ডিপার্টমেন্টেই কিন্তু employees নামে টেবিল থাকতে পারে। তখন আমরা স্কিমার মাধ্যমে একই নামে দুটি টেবিলকে আলাদা আলাদা করে রাখতে পারব — sales.employees এবং hr.employees নামে।
 
 
 ## 3. Explain the Primary Key and Foreign Key concepts in PostgreSQL.
+* Primary key হচ্ছে একটি টেবিলের বিশেষ একটি বা একাধিক কলামের সমন্বয়ে তৈরি কলাম, যার মাধ্যমে একটি টেবিলের প্রতিটি রো-এর ডেটাকে আলাদা করে শনাক্ত করা যায়।
+
+- Primary key-এর মাধ্যমে একটি টেবিলের প্রতিটি রো-কে স্বতন্ত্রভাবে আলাদা করতে পারি।
+
+- প্রতিটি রো-এর জন্য একটি করে primary key থাকে।
+
+- Primary key কখনো ফাঁকা বা NULL হতে পারবে না।
+
+* Foreign Key
+Foreign key হচ্ছে — এক টেবিলের primary key-কে যখন আরেকটি টেবিলে সম্পর্ক (relation) করার জন্য ব্যবহার করা হয়, তখন তাকে foreign key বলে।
+
+- এক টেবিলের primary key-এর সঙ্গে অন্য টেবিলের foreign key কানেক্ট করা হয়।
+
+- Foreign key-এর মাধ্যমে দুটি টেবিলের মধ্যে সম্পর্ক তৈরি করা যায়।
 
 
-## 4. What is the difference between the VARCHAR and CHAR data types?
+
+## 4. Explain the purpose of the WHERE clause in a SELECT statement.
+
+Where keyword database-এ নির্দিষ্ট condition অনুযায়ী data বের করার জন্য ব্যবহার করা হয়। যখন একটি table-এর সব data আমাদের দরকার হয় না, শুধু নির্দিষ্ট condition-এর data দরকার হয় — তখন Where keyword ব্যবহার করা হয়।
+
+আমরা database query-তে SELECT keyword দিয়ে data আনতে পারি। এরপর WHERE keyword দিয়ে condition সেট করে, সেই condition অনুযায়ী data আনতে পারি।
+
+সুতরাং বলা যায়, WHERE keyword এর মাধ্যমে আমরা নির্দিষ্ট কিছু data condition অনুযায়ী বের করতে পারি।
 
 
 
 ## 5. What is the significance of the JOIN operation, and how does it work in PostgreSQL?
+*  JOIN keyword diye PostgreSQL database-এ একাধিক table কে একসাথে join করে এক table-এ নিয়ে আসা হয়।
+যেহেতু PostgreSQL একটি relational database, তাই এখানে data বিভিন্ন table-এ রাখা হয় data গোছানো রাখার জন্য। এবং এক table-এর সাথে অন্য table-এর connection বা relation থাকে। JOIN keyword-এর মাধ্যমে একাধিক connected table-কে এক table-এ আনা হয়। এর ফলে আমরা পরিপূর্ণ একটি information দেখতে পারি।
+
+* JOIN keyword-এর মাধ্যমে একাধিক table-এর মধ্যকার primary key ও foreign key-এর relation-কে কাজে লাগিয়ে নতুন table তৈরি করা হয়।
+
+* প্রধানত ৪ ধরনের JOIN ব্যবহার করা হয়ঃ
+
+- INNER JOIN – দুটি table-এর common data গুলো এক table-এ দেখানো হয়।
+
+- LEFT JOIN – বাঁ পাশে অর্থাৎ প্রথম table-এর সব data দেখানো হয় এবং ডান পাশে অর্থাৎ দ্বিতীয় table-এর matching data গুলো দেখানো হয়।
+
+- RIGHT JOIN – ডান পাশে অর্থাৎ দ্বিতীয় table-এর সব data দেখানো হয় এবং বাঁ পাশে অর্থাৎ প্রথম table-এর matching data গুলো দেখানো হয়।
+
+- FULL OUTER JOIN – দুটি table-এর সব data (matching এবং non-matching উভয়) নিয়ে এক table তৈরি করে দেখানো হয়।
